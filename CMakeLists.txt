@@ -2,13 +2,13 @@ cmake_minimum_required(VERSION 3.10.2)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-address-of-packed-member")
 
 project(MavlinkTagController)
 
 add_definitions("-Wall -Wextra")
 
-find_package(mavlink-cpp REQUIRED)
+add_subdirectory(libraries)
 
 add_executable(MavlinkTagController
     main.cpp
@@ -21,9 +21,5 @@ add_executable(MavlinkTagController
 
 target_link_libraries(MavlinkTagController
     mavlink-cpp
-)
-
-target_include_directories(MavlinkTagController
-    PRIVATE
-    mavlink-headers/common
+    airspyhf
 )
